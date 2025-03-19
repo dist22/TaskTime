@@ -9,7 +9,7 @@ public interface ITasksRepository : IBaseRepository<TaskTime>
 
     public Task ChangeCategory(TaskTime task, Category category);
 
-    public Task<IEnumerable<TaskTime>> GetAll();
+    public Task<IEnumerable<TaskTime>> GetAllTasks();
 
     public Task<TaskTime> GetById(int taskId);
 

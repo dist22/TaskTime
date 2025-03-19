@@ -16,7 +16,7 @@ public class TasksRepository : BaseRepository<TaskTime>, ITasksRepository
 
     #region GET()
 
-    public async Task<IEnumerable<TaskTime>> GetAll()
+    public async Task<IEnumerable<TaskTime>> GetAllTasks()
     {
         return await _entity
             .AsNoTracking()
@@ -48,6 +48,14 @@ public class TasksRepository : BaseRepository<TaskTime>, ITasksRepository
             .ToListAsync();
     }
 
+    public async Task<IEnumerable<TaskTime>> GetUserTask(int userId)
+    {
+        return await _entity
+            .AsNoTracking()
+            .Where(t => t.Users.Any(u => u.UserId == userId))
+            .ToListAsync();
+    }
+    
     #endregion
 
     public async Task Add(TaskTime createTask, Category category)
@@ -87,12 +95,5 @@ public class TasksRepository : BaseRepository<TaskTime>, ITasksRepository
             throw new Exception("Fail");
     }
 
-    public async Task<IEnumerable<TaskTime>> GetUserTask(int userId)
-    {
-        return await _entity
-            .AsNoTracking()
-            .Where(t => t.Users.Any(u => u.UserId == userId))
-            .ToListAsync();
-    }
 
 }

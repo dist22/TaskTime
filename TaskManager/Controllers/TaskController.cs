@@ -32,7 +32,7 @@ public class TaskController : ControllerBase
     [HttpGet("GetAll")]
     public async Task<IEnumerable<TaskDto>> GetAll()
     {
-        var taskDto = await _tasksRepository.GetAll();
+        var taskDto = await _tasksRepository.GetAllTasks();
         var task = _mapper.Map<IEnumerable<TaskDto>>(taskDto);
         return task;
     }
@@ -117,7 +117,7 @@ public class TaskController : ControllerBase
         return Ok();
     }
 
-    //TODO : Видалити таску✅ 8.PUT()
+    //TODO : Змінити статус таски✅ 9.PUT()
     [HttpPut("ChangeStatus/{taskId}/{status}")]
     public async Task<IActionResult> ChangeStatus(int taskId, bool status)
     {
@@ -132,7 +132,7 @@ public class TaskController : ControllerBase
 
     #region DELETE()
 
-    //TODO : Видалити таску✅ 9.DELETE()
+    //TODO : Видалити таску✅ 10.DELETE()
     [HttpDelete("DeleteTask/{taskid}")]
     public async Task<IActionResult> DeleteTask(int taskId)
     {

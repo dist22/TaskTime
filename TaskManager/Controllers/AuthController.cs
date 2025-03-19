@@ -58,4 +58,14 @@ public class AuthController : ControllerBase
         }
         throw new Exception("Log failed");
     }
+
+    [HttpGet("RefreshToken")]
+    public async Task<IActionResult> Refresh()
+    {
+        User? user = await _userRepository.GetById(Int32.Parse(this.User.FindFirst("userId")?.Value));
+        return Ok(new Dictionary<string, string>
+        {
+            {"token",_jwtProvider.CreateToken(user.UserId)}
+        });
+    }
 }
