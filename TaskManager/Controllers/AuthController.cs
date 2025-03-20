@@ -22,7 +22,7 @@ public class AuthController : ControllerBase
         _jwtProvider = jwtProvider;
     }
 
-    //TODO : User registration 1.POST()
+    //User registration 1.POST()
     [AllowAnonymous]
     [HttpPost("Reg")]
     public async Task<IActionResult> Reg(UserForRegistration userForRegistration)
@@ -40,7 +40,7 @@ public class AuthController : ControllerBase
         throw new Exception("A user with this email already exists");
     }
 
-    //TODO : User authentication 2.POST()
+    //User authentication 2.POST()
     [AllowAnonymous]
     [HttpPost("Log")]
     public async Task<IActionResult> Log(UserForLogin userForLogin)
@@ -56,7 +56,7 @@ public class AuthController : ControllerBase
         throw new Exception("Incorrect password");
     }
 
-    //TODO : Refresh token 3.GET()
+    //Refresh token 3.GET()
     [HttpGet("RefreshToken")]
     public async Task<IActionResult> Refresh()
     {
@@ -67,7 +67,7 @@ public class AuthController : ControllerBase
         });
     }
     
-    //TODO : Change password 4.POST()
+    //Change password 4.POST()
     [HttpPost("ChangePassword")]
     public async Task<IActionResult> ChangePass(ChangePasswordDto changePasswordDto)
     {

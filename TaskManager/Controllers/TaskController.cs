@@ -28,7 +28,7 @@ public class TaskController : ControllerBase
 
     #region GET()
 
-    //TODO : Get all tasks 1.GET()
+    //Get all tasks 1.GET()
     [HttpGet("GetAll")]
     public async Task<IEnumerable<TaskDto>> GetAll()
     {
@@ -37,7 +37,7 @@ public class TaskController : ControllerBase
         return task;
     }
 
-    //TODO : Get task by id 2.GET()
+    //Get task by id 2.GET()
     [HttpGet("GetTaskById/{taskId}")]
     public async Task<TaskDto> GetTaskById(int taskId)
     {
@@ -46,7 +46,7 @@ public class TaskController : ControllerBase
         return task;
     }
 
-    //TODO : Get all active tasks 3.GET()
+    //Get all active tasks 3.GET()
     [HttpGet("GetActive")]
     public async Task<IEnumerable<TaskDto>> GetActive()
     {
@@ -55,7 +55,7 @@ public class TaskController : ControllerBase
         return task;
     }
 
-    //TODO : Get all tasks by category 4.GET()
+    //Get all tasks by category 4.GET()
     [HttpGet("GetByCategory/{categoryName}")]
     public async Task<IEnumerable<TaskDto>> GetByCategory(string categoryName)
     {
@@ -68,7 +68,7 @@ public class TaskController : ControllerBase
 
     #region POST()
 
-    //TODO : Create a task 5.POST()
+    //Create a task 5.POST()
     [HttpPost("CreateTask")]
     public async Task<IActionResult> Create(CreateTaskDto createTaskDto)
     {
@@ -83,7 +83,7 @@ public class TaskController : ControllerBase
 
     #region PUT()
 
-    //TODO : Edit task 6.PUT()
+    //Edit task 6.PUT()
     [HttpPut("EditTask")]
     public async Task<IActionResult> EditTask(TaskForEdit taskForEdit)
     {
@@ -94,7 +94,7 @@ public class TaskController : ControllerBase
         throw new Exception("Error while trying to update task");
     }
 
-    //TODO : Change task category 7.PUT()
+    //Change task category 7.PUT()
     [HttpPut("ChangeTaskCategory/{taskId}/{categoryName}")]
     public async Task<IActionResult> ChangeCategory(int taskId, string categoryName)
     {
@@ -105,7 +105,7 @@ public class TaskController : ControllerBase
         return Ok();
     }
 
-    //TODO : Add user to task 8.PUT()
+    //Add user to task 8.PUT()
     [HttpPut("AddUser/{userId}/{taskId}")]
     public async Task<IActionResult> AddUser(int userId, int taskId)
     {
@@ -117,7 +117,7 @@ public class TaskController : ControllerBase
         return Ok();
     }
 
-    //TODO : Change task status 9.PUT()
+    //Change task status 9.PUT()
     [HttpPut("ChangeStatus/{taskId}/{status}")]
     public async Task<IActionResult> ChangeStatus(int taskId, bool status)
     {
@@ -132,7 +132,7 @@ public class TaskController : ControllerBase
 
     #region DELETE()
 
-    //TODO : Delete task 10.DELETE()
+    //Delete task 10.DELETE()
     [HttpDelete("DeleteTask/{taskid}")]
     public async Task<IActionResult> DeleteTask(int taskId)
     {

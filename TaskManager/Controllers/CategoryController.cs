@@ -23,21 +23,21 @@ public class CategoryController : ControllerBase
     
     #region GET()
     
-    //TODO : Display all categories 1.GET()
+    //Display all categories 1.GET()
     [HttpGet("GetAll")]
     public async Task<IEnumerable<Category>> GetAll()
     {
         return await _categoryRepository.GetAllCategories();
     }
 
-    //TODO : Search for a category by its id 2.GET()
+    //Search for a category by its id 2.GET()
     [HttpGet("GetOneById/{categoriesId}")]
     public async Task<Category> GetOneById(int categoriesId)
     {
         return await _categoryRepository.FindCategoriesById(categoriesId);
     }
 
-    //TODO : Search for a category by its name 3.GET()
+    //Search for a category by its name 3.GET()
     [HttpGet("GetOneByName/{categoriesName}")]
     public async Task<Category> GetOneByName(string categoriesName)
     {
@@ -48,7 +48,7 @@ public class CategoryController : ControllerBase
 
     #region POST()
     
-    // TODO : Adding a category 4.POST()
+    // Adding a category 4.POST()
     [HttpPost("Add")]
     public async Task<IActionResult> Add(string categoriesName)
     {
@@ -63,7 +63,7 @@ public class CategoryController : ControllerBase
     #endregion
 
     #region PUT()
-    //TODO : Editing a category 5.PUT()
+    //Editing a category 5.PUT()
     [HttpPut("Edit")]
     public async Task<IActionResult> EditById(CategoryForEditDto categoryForEditDto)
     {
@@ -77,7 +77,7 @@ public class CategoryController : ControllerBase
 
     #region DELETE()
        
-    //TODO : Delete a category 6.DELETE()
+    //Delete a category 6.DELETE()
     [HttpDelete("DeleteCategory/{categoryId}")]
     public async Task<IActionResult> Delete(int categoryId)
     {

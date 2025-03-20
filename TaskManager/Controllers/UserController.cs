@@ -25,7 +25,7 @@ public class UserController : ControllerBase
 
     #region GET()
     
-    //TODO : Getting all users 1.GET()
+    //Getting all users 1.GET()
     [HttpGet("GetUsers")]
     public async Task<IEnumerable<UserDto>> GetUsers()
     {
@@ -33,7 +33,7 @@ public class UserController : ControllerBase
         return _mapper.Map<IEnumerable<UserDto>>(user);
     }
     
-    //TODO : Getting user by id 2.GET()
+    //Getting user by id 2.GET()
     [HttpGet("GetUser/{userId}")]
     public async Task<UserDto> GetUser(int userId)
     {
@@ -41,7 +41,7 @@ public class UserController : ControllerBase
         return _mapper.Map<UserDto>(user);
     }
     
-    //TODO : Get user tasks 3.GET()
+    //Get user tasks 3.GET()
     [HttpGet("GetUserTask/{userId}")]
     public async Task<IEnumerable<TaskDto>> GetUserTasks(int userId)
     {
@@ -49,7 +49,7 @@ public class UserController : ControllerBase
         return _mapper.Map<IEnumerable<TaskDto>>(tasks);
     }
 
-    //TODO : Getting an authenticated user 4.GET()
+    //Getting an authenticated user 4.GET()
     [HttpGet("GetMyUser")]
     public async Task<UserDto> GetMyUser()
     {
@@ -69,7 +69,7 @@ public class UserController : ControllerBase
     #endregion 
     #region DELETE()
 
-    //TODO : Deleting a user 6.DELETE()
+    //Deleting a user 6.DELETE()
     [HttpDelete("DeleteUser/{email}")]
     public async Task<IActionResult> DeleteUser(string email)
     {
