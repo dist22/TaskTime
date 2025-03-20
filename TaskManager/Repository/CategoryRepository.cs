@@ -8,8 +8,7 @@ namespace TaskManager.Repository;
 public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
 {
     public CategoryRepository(DataContextEF entity) : base(entity)
-    {
-    }
+    { }
 
     public async Task<IEnumerable<Category>> GetAllCategories()
     {
@@ -17,11 +16,11 @@ public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
             .ToListAsync();
     }
 
-    public async Task<Category?> FindCategoriesByName(string CategoriesName)
+    public async Task<Category?> FindCategoriesByName(string categoriesName)
     {
         return await _entity
             .AsNoTracking()
-            .FirstOrDefaultAsync(c => c.CategoriesName == CategoriesName);
+            .FirstOrDefaultAsync(c => c.CategoriesName == categoriesName);
     }
 
     public async Task<Category> FindCategoriesById(int categoriesId)
@@ -29,20 +28,20 @@ public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
         var category = await _entity
                            .AsNoTracking()
                            .FirstOrDefaultAsync(c => c.CategoriesId == categoriesId) ??
-                       throw new Exception("Not found");
+                       throw new Exception("Category with this ID was not found.");
         return category;
     }
 
-    public async Task<Category?> CreateCategories(string CategoriesName)
+    public async Task<Category?> CreateCategories(string categoriesName)
     {
         Category? category = new Category
         {
-            CategoriesName = CategoriesName
+            CategoriesName = categoriesName
         };
         
         await _entity.AddAsync(category);
         if (await SaveChanges())
             return category;
-        throw new Exception("Error");
+        throw new Exception("Error while trying to save category");
     }
 }

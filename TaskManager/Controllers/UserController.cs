@@ -25,7 +25,7 @@ public class UserController : ControllerBase
 
     #region GET()
     
-    //TODO : Отримання всіх користувачів ✅ 1.GET()
+    //TODO : Getting all users 1.GET()
     [HttpGet("GetUsers")]
     public async Task<IEnumerable<UserDto>> GetUsers()
     {
@@ -33,7 +33,7 @@ public class UserController : ControllerBase
         return _mapper.Map<IEnumerable<UserDto>>(user);
     }
     
-    //TODO : Отримання користувача за id ✅ 2.GET()
+    //TODO : Getting user by id 2.GET()
     [HttpGet("GetUser/{userId}")]
     public async Task<UserDto> GetUser(int userId)
     {
@@ -41,7 +41,7 @@ public class UserController : ControllerBase
         return _mapper.Map<UserDto>(user);
     }
     
-    //TODO : Отримати таски користувача ✅ 3.GET()
+    //TODO : Get user tasks 3.GET()
     [HttpGet("GetUserTask/{userId}")]
     public async Task<IEnumerable<TaskDto>> GetUserTasks(int userId)
     {
@@ -49,7 +49,7 @@ public class UserController : ControllerBase
         return _mapper.Map<IEnumerable<TaskDto>>(tasks);
     }
 
-    //TODO : Отримання аунтефіковаго користувача ✅ 4.GET()
+    //TODO : Getting an authenticated user 4.GET()
     [HttpGet("GetMyUser")]
     public async Task<UserDto> GetMyUser()
     {
@@ -59,7 +59,7 @@ public class UserController : ControllerBase
     #endregion
 
     #region PUT()
-    //TODO: Редагування користувача ✅ 5.PUT()
+    //TODO: User editing 5.PUT()
     [HttpPut("EditUser")]
     public async Task<IActionResult> EditUser(UserForEdit userForEdit)
     {
@@ -69,14 +69,14 @@ public class UserController : ControllerBase
     #endregion 
     #region DELETE()
 
-    //TODO : Видалення користувача ✅ 6.DELETE()
+    //TODO : Deleting a user 6.DELETE()
     [HttpDelete("DeleteUser/{email}")]
     public async Task<IActionResult> DeleteUser(string email)
     {
         User? user = await _userRepository.GetByEmail(email);
         if (await _userRepository.RemoveEntity(user))
             return Ok();
-        throw new Exception("Fail");
+        throw new Exception("Error while trying to delete user");
     }
     #endregion 
 

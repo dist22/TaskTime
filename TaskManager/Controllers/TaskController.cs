@@ -28,7 +28,7 @@ public class TaskController : ControllerBase
 
     #region GET()
 
-    //TODO : Отримати всі таски✅ 1.GET()
+    //TODO : Get all tasks 1.GET()
     [HttpGet("GetAll")]
     public async Task<IEnumerable<TaskDto>> GetAll()
     {
@@ -37,7 +37,7 @@ public class TaskController : ControllerBase
         return task;
     }
 
-    //TODO : Отримати таску за id✅ 2.GET()
+    //TODO : Get task by id 2.GET()
     [HttpGet("GetTaskById/{taskId}")]
     public async Task<TaskDto> GetTaskById(int taskId)
     {
@@ -46,7 +46,7 @@ public class TaskController : ControllerBase
         return task;
     }
 
-    //TODO : Отримати всі активні таски ✅ 3.GET()
+    //TODO : Get all active tasks 3.GET()
     [HttpGet("GetActive")]
     public async Task<IEnumerable<TaskDto>> GetActive()
     {
@@ -55,7 +55,7 @@ public class TaskController : ControllerBase
         return task;
     }
 
-    //TODO : Отримати всі таски за катерогією ✅ 4.GET()
+    //TODO : Get all tasks by category 4.GET()
     [HttpGet("GetByCategory/{categoryName}")]
     public async Task<IEnumerable<TaskDto>> GetByCategory(string categoryName)
     {
@@ -68,7 +68,7 @@ public class TaskController : ControllerBase
 
     #region POST()
 
-    //TODO : Створити таску ✅ 5.POST()
+    //TODO : Create a task 5.POST()
     [HttpPost("CreateTask")]
     public async Task<IActionResult> Create(CreateTaskDto createTaskDto)
     {
@@ -83,7 +83,7 @@ public class TaskController : ControllerBase
 
     #region PUT()
 
-    //TODO : Редагувати таску✅ 6.PUT()
+    //TODO : Edit task 6.PUT()
     [HttpPut("EditTask")]
     public async Task<IActionResult> EditTask(TaskForEdit taskForEdit)
     {
@@ -91,10 +91,10 @@ public class TaskController : ControllerBase
         _mapper.Map(taskForEdit, task);
         if (await _tasksRepository.Update(task))
             return Ok();
-        throw new Exception("Error");
+        throw new Exception("Error while trying to update task");
     }
 
-    //TODO : Змітини категоріїю таски✅ 7.PUT()
+    //TODO : Change task category 7.PUT()
     [HttpPut("ChangeTaskCategory/{taskId}/{categoryName}")]
     public async Task<IActionResult> ChangeCategory(int taskId, string categoryName)
     {
@@ -105,7 +105,7 @@ public class TaskController : ControllerBase
         return Ok();
     }
 
-    //TODO : Дадати користувача до таски✅ 8.PUT()
+    //TODO : Add user to task 8.PUT()
     [HttpPut("AddUser/{userId}/{taskId}")]
     public async Task<IActionResult> AddUser(int userId, int taskId)
     {
@@ -117,7 +117,7 @@ public class TaskController : ControllerBase
         return Ok();
     }
 
-    //TODO : Змінити статус таски✅ 9.PUT()
+    //TODO : Change task status 9.PUT()
     [HttpPut("ChangeStatus/{taskId}/{status}")]
     public async Task<IActionResult> ChangeStatus(int taskId, bool status)
     {
@@ -125,21 +125,21 @@ public class TaskController : ControllerBase
         task.isComplete = status;
         if (await _tasksRepository.Update(task))
             return Ok();
-        throw new Exception("Fail");
+        throw new Exception("Error while trying to update task");
     }
 
     #endregion
 
     #region DELETE()
 
-    //TODO : Видалити таску✅ 10.DELETE()
+    //TODO : Delete task 10.DELETE()
     [HttpDelete("DeleteTask/{taskid}")]
     public async Task<IActionResult> DeleteTask(int taskId)
     {
         var task = await _tasksRepository.GetById(taskId);
         if (await _tasksRepository.RemoveEntity(task))
             return Ok();
-        throw new Exception("Error");
+        throw new Exception("Error while trying to delete a task");
     }
 
     #endregion

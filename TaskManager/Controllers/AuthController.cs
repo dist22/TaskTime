@@ -22,7 +22,7 @@ public class AuthController : ControllerBase
         _jwtProvider = jwtProvider;
     }
 
-    //TODO : Реєстрація користувача ✅ 1.POST()
+    //TODO : User registration 1.POST()
     [AllowAnonymous]
     [HttpPost("Reg")]
     public async Task<IActionResult> Reg(UserForRegistration userForRegistration)
@@ -35,13 +35,12 @@ public class AuthController : ControllerBase
                 return Ok("Complete");
             }
 
-            throw new Exception("Password");
+            throw new Exception("The passwords entered do not match");
         }
-
-        throw new Exception("Email");
+        throw new Exception("A user with this email already exists");
     }
 
-    //TODO : Аунтефікація користувача ✅ 2.POST()
+    //TODO : User authentication 2.POST()
     [AllowAnonymous]
     [HttpPost("Log")]
     public async Task<IActionResult> Log(UserForLogin userForLogin)
@@ -54,10 +53,10 @@ public class AuthController : ControllerBase
                 {"token",_jwtProvider.CreateToken(user.UserId)}
             });
         }
-        throw new Exception("Log failed");
+        throw new Exception("Incorrect password");
     }
 
-    //TODO : Оновлення токену ✅ 3.GET()
+    //TODO : Refresh token 3.GET()
     [HttpGet("RefreshToken")]
     public async Task<IActionResult> Refresh()
     {
@@ -68,7 +67,7 @@ public class AuthController : ControllerBase
         });
     }
     
-    //TODO : Зміна параля ✅4.POST()
+    //TODO : Change password 4.POST()
     [HttpPost("ChangePassword")]
     public async Task<IActionResult> ChangePass(ChangePasswordDto changePasswordDto)
     {
@@ -78,6 +77,6 @@ public class AuthController : ControllerBase
             await _userRepository.ChangePassword(user, changePasswordDto.Password);
             return Ok();
         }
-        throw new Exception("Fail");
+        throw new Exception("The passwords entered do not match");
     }
 }

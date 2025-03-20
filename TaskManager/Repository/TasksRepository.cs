@@ -10,8 +10,7 @@ namespace TaskManager.Repository;
 public class TasksRepository : BaseRepository<TaskTime>, ITasksRepository
 {
 
-    public TasksRepository(DataContextEF entity, IMapper mapper,
-        IUserRepository userRepository) : base(entity)
+    public TasksRepository(DataContextEF entity) : base(entity)
     { }
 
     #region GET()
@@ -28,7 +27,7 @@ public class TasksRepository : BaseRepository<TaskTime>, ITasksRepository
         var task = await _entity
                        .AsNoTracking()
                        .FirstOrDefaultAsync(t => t.TaskId == taskId) ??
-                   throw new Exception("Task not found");
+                   throw new Exception("Task with given ID was not found.");
         return task;
     }
 
@@ -66,7 +65,7 @@ public class TasksRepository : BaseRepository<TaskTime>, ITasksRepository
         await _entity.AddAsync(createTask);
 
         if (!await SaveChanges())
-            throw new Exception("Fail");
+            throw new Exception("Error while trying to save task");
         
         category.Tasks.Add(createTask);
         await Update(category);
@@ -79,11 +78,11 @@ public class TasksRepository : BaseRepository<TaskTime>, ITasksRepository
         task.CategoryName = category.CategoriesName;
 
         if (!await Update(task))
-            throw new Exception("fail");
+            throw new Exception("Error while trying to update task");
         
         category.Tasks.Add(task);
         if (!await Update(category))
-            throw new Exception("fail");
+            throw new Exception("Error while trying to update task");
         
 
     }
@@ -92,7 +91,7 @@ public class TasksRepository : BaseRepository<TaskTime>, ITasksRepository
     {
         task.Users.Add(user);
         if (!await Update(task))
-            throw new Exception("Fail");
+            throw new Exception("Error while trying to update task");
     }
 
 

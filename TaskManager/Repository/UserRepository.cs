@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Data;
 using TaskManager.Dtos;
@@ -31,7 +29,7 @@ public class UserRepository : BaseRepository<User>, IUserRepository
         };
         await _entity.AddAsync(user);
         if (!await SaveChanges())
-            throw new Exception("Filed to save");
+            throw new Exception("Error while trying to save user");
     }
 
     public async Task<User> GetByEmail(string userEmail)
@@ -39,7 +37,7 @@ public class UserRepository : BaseRepository<User>, IUserRepository
         var user = await _entity
                        .AsNoTracking()
                        .FirstOrDefaultAsync(u => u.Email == userEmail) ??
-                   throw new Exception("User not found");
+                   throw new Exception("No user with this email was found.");
         return user;
         
     }
@@ -49,7 +47,7 @@ public class UserRepository : BaseRepository<User>, IUserRepository
         return await _entity
                    .AsNoTracking()
                    .FirstOrDefaultAsync(u => u.UserId == userId)
-               ?? throw new Exception("Fail");
+               ?? throw new Exception("No user with this ID was found.");
     }
 
     public async Task<bool> FindEmail(string userForRegistrationEmail)
@@ -61,7 +59,7 @@ public class UserRepository : BaseRepository<User>, IUserRepository
     {
         user.Tasks?.Add(task);
         if (!await Update(user))
-            throw new Exception("Fail");
+            throw new Exception("Error while trying to update user");
 
     }
 
@@ -77,14 +75,14 @@ public class UserRepository : BaseRepository<User>, IUserRepository
         var user = await GetById(userForEdit.UserId);
         user = _mapper.Map<User>(userForEdit);
         if (!await Update(user))
-            throw new Exception("Fail");
+            throw new Exception("Error while trying to update user");
     }
 
     public async Task ChangePassword(User user, string newPassword)
     {
         user.PasswordHash = _passwordHasher.Genarate(newPassword);
         if (!await Update(user))
-            throw new Exception("Fail");
+            throw new Exception("Error while trying to update user");
     }
 
 }
