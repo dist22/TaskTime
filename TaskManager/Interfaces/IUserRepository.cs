@@ -13,4 +13,5 @@ public interface IUserRepository : IBaseRepository<User>
     public Task<User> GetById(int userId);
     public Task AddTaskToUser(User user, TaskTime task);
     public Task EditUser(UserForEdit userForEdit);
+    public Task ChangePassword(User user, string newPassword);
 }

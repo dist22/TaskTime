@@ -80,4 +80,11 @@ public class UserRepository : BaseRepository<User>, IUserRepository
             throw new Exception("Fail");
     }
 
+    public async Task ChangePassword(User user, string newPassword)
+    {
+        user.PasswordHash = _passwordHasher.Genarate(newPassword);
+        if (!await Update(user))
+            throw new Exception("Fail");
+    }
+
 }

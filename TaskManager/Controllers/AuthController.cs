@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.Dtos;
 using TaskManager.Interfaces;
@@ -15,16 +14,15 @@ public class AuthController : ControllerBase
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IJwtProvider _jwtProvider;
-    private readonly IMapper _mapper;
 
-    public AuthController(IUserRepository userRepository, IPasswordHasher passwordHasher, IJwtProvider jwtProvider, IMapper mapper)
+    public AuthController(IUserRepository userRepository, IPasswordHasher passwordHasher, IJwtProvider jwtProvider)
     {
         _userRepository = userRepository;
         _passwordHasher = passwordHasher;
         _jwtProvider = jwtProvider;
-        _mapper = mapper;
     }
 
+    //TODO : Реєстрація користувача ✅ 1.POST()
     [AllowAnonymous]
     [HttpPost("Reg")]
     public async Task<IActionResult> Reg(UserForRegistration userForRegistration)
@@ -43,7 +41,7 @@ public class AuthController : ControllerBase
         throw new Exception("Email");
     }
 
-
+    //TODO : Аунтефікація користувача ✅ 2.POST()
     [AllowAnonymous]
     [HttpPost("Log")]
     public async Task<IActionResult> Log(UserForLogin userForLogin)
@@ -59,6 +57,7 @@ public class AuthController : ControllerBase
         throw new Exception("Log failed");
     }
 
+    //TODO : Оновлення токену ✅ 3.GET()
     [HttpGet("RefreshToken")]
     public async Task<IActionResult> Refresh()
     {
@@ -67,5 +66,18 @@ public class AuthController : ControllerBase
         {
             {"token",_jwtProvider.CreateToken(user.UserId)}
         });
+    }
+    
+    //TODO : Зміна параля ✅4.POST()
+    [HttpPost("ChangePassword")]
+    public async Task<IActionResult> ChangePass(ChangePasswordDto changePasswordDto)
+    {
+        User? user = await _userRepository.GetById(Int32.Parse(this.User.FindFirst("userId")?.Value));
+        if (changePasswordDto.Password == changePasswordDto.PasswordConfirm)
+        {
+            await _userRepository.ChangePassword(user, changePasswordDto.Password);
+            return Ok();
+        }
+        throw new Exception("Fail");
     }
 }
