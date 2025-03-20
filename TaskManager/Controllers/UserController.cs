@@ -59,7 +59,7 @@ public class UserController : ControllerBase
     #endregion
 
     #region PUT()
-    //TODO: User editing 5.PUT()
+    //User editing 5.PUT()
     [HttpPut("EditUser")]
     public async Task<IActionResult> EditUser(UserForEdit userForEdit)
     {
